@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hangman Game</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        pre { font-size: 20px; }
+        button { padding: 10px; margin: 5px; }
+        img { width: 400px; }
+    </style>
+</head>
+<body>
+    <h1>Hangman</h1>
+    <a href="{{ url_for('new_game', mode=session.get('mode', 'word')) }}"><b>Restart Game</b></a>
+
+
+    <pre>{{ hangman_img | safe }}</pre>
+
+
+    
+    <p>Attempts left: {{ attempts }}</p>
+    <p style="white-space: pre;"><b>{{ text }}</b></p>
+
+
+    {% if message %}
+        <p><b>{{ message }}</b></p>
+    {% endif %}
+
+    {% if game_over %}
+        <p>Game Over! The phrase was: <b>{{ original_text }}</b></p>
+        <a href="{{ url_for('new_game') }}">Start a New Game</a>  <!-- ✅ Fixed button -->
+        {% if plot_url %}
+            <h2>Performance Analysis</h2>
+            <img src="data:image/png;base64,{{ plot_url }}" alt="Success Rate Chart">
+        {% endif %}
+    {% else %}
+        <form action="/" method="post">
+            <input type="text" name="letter" maxlength="1" required>
+            <button type="submit">Guess</button>
+        </form>
+        {% if not hint_used %}
+            <form action="/" method="post">
+                <input type="hidden" name="letter" value="hint">
+                <button type="submit">Use Hint</button>
+            </form>
+        {% endif %}
+    {% endif %}
+</body>
+</html>

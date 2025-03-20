@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hangman - Choose Mode</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        button { padding: 10px; margin: 5px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Hangman!</h1>
+    <p>Choose a game mode:</p>
+    <form action="/new_game" method="post">
+        <button type="submit" name="mode" value="word">Play Words</button>
+        <button type="submit" name="mode" value="sentence">Play Sentences</button>
+    </form>
+</body>
+</html>
