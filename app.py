@@ -3,6 +3,7 @@ import random
 import matplotlib.pyplot as plt
 import io
 import base64
+import os
 
 app = Flask(__name__)
 app.secret_key = "hangman_secret"
@@ -212,4 +213,5 @@ def display_text(text, guessed_letters):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))  # Použij port od Renderu, nebo fallback 10000
+    app.run(host="0.0.0.0", port=port)
