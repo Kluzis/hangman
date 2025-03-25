@@ -8,7 +8,6 @@ import os
 app = Flask(__name__)
 app.secret_key = "hangman_secret"
 
-# ASCII Hangman Stages
 HANGMAN_PICS = [
     """
        ------
@@ -68,7 +67,7 @@ HANGMAN_PICS = [
     ========="""
 ]
 
-# Load words and sentences
+# Load function
 def load_text(file_path):
     try:
         with open(file_path, "r", encoding="utf-8") as file:
@@ -76,9 +75,12 @@ def load_text(file_path):
     except FileNotFoundError:
         return ["default phrase"]
 
-# Load word lists
+# Words and sentences
 words = load_text("words.txt")
 sentences = load_text("sentences.txt")
+
+
+
 
 # Function to start a new game
 def start_new_game(mode):
@@ -92,12 +94,16 @@ def start_new_game(mode):
     session["failures"] = {"vowels": set(), "consonants": set()}
     return chosen_text
 
-# Function to get a hint
+
+
+
+
+# Hint Function
 def get_hint(text, guessed_letters):
     remaining_letters = [char for char in text if char.isalpha() and char not in guessed_letters]
     return random.choice(remaining_letters) if remaining_letters else None
 
-# Function to generate the success/failure plot
+# Plot gen.
 def generate_plot():
     labels = ["Success Vowels", "Success Consonants", "Fail Vowels", "Fail Consonants"]
     values = [len(session["success"]["vowels"]), len(session["success"]["consonants"]),
@@ -116,12 +122,16 @@ def generate_plot():
     plt.close()
     return plot_url
 
+
+
+
+
 @app.route("/", methods=["GET", "POST"])
 def index():
-    if "mode" not in session:  # ✅ If no mode selected, go to start page
+    if "mode" not in session:  
         return render_template("start.html")
 
-    # ✅ Ensure all session variables exist
+    
     session.setdefault("hint_used", False)
     session.setdefault("success", {"vowels": [], "consonants": []})
     session.setdefault("failures", {"vowels": [], "consonants": []})

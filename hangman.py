@@ -40,7 +40,7 @@ HANGMAN_PICS = [
        ------
        |    |
        O    |
-      /|\\   |
+      /|\   |
             |
             |
     =========""",
@@ -48,7 +48,7 @@ HANGMAN_PICS = [
        ------
        |    |
        O    |
-      /|\\   |
+      /|\   |
       /     |
             |
     =========""",
@@ -56,13 +56,13 @@ HANGMAN_PICS = [
        ------
        |    |
        O    |
-      /|\\   |
-      / \\   |
+      /|\   |
+      / \   |
             |
     ========="""
 ]
 
-# Function to choose a game mode (Words or Sentences)
+# Game mode 
 def choose_game_mode():
     while True:
         mode = input("\nChoose your game mode:\n1️⃣ Words (single words)\n2️⃣ Sentences (full sentences)\nEnter 1 or 2: ").strip()
@@ -70,7 +70,7 @@ def choose_game_mode():
             return mode
         print("❌ Invalid input! Please enter '1' for Words or '2' for Sentences.")
 
-# Function to load words or sentences from a file
+# Load Function
 def choose_text(mode):
     file_path = "C:\\ONEBOND\\skola\\words.txt" if mode == "1" else "C:\\ONEBOND\\skola\\sentences.txt"
     try:
@@ -85,7 +85,7 @@ def choose_text(mode):
 def display_text(text, guessed_letters, mode):
     return " ".join([char if char in guessed_letters or char == " " else "_" for char in text])
 
-# Function to get a hint (reveals one missing letter)
+# Function to get a hint
 def get_hint(text, guessed_letters):
     remaining_letters = [char for char in text if char.isalpha() and char not in guessed_letters]
     return random.choice(remaining_letters) if remaining_letters else None
